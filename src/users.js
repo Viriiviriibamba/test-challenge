@@ -6,6 +6,29 @@ const users = require("./data").default;
 const getUsers = () => {
   return users;
 };
+module.exports = { getUsers, getUser };
+
+function getUsers (users) { 
+  return new Promise((resolve, reject) => {
+    setTimeout(() => { 
+      const user = userData[users];
+      if (user) {
+        resolve(users);
+
+        } else {
+          reject(new Error("User not found")); 
+        }
+      }, 2000); 
+    }); 
+}
+
+getUsers(1)
+  .then(user => {
+    console.log("User data:", user);
+  })
+  .catch(error => {
+    console.error("Error:", error.message);
+  });
 
 // Filters users by specific ID
 const getUser = (id) => {
@@ -14,6 +37,4 @@ const getUser = (id) => {
 
 // test
 // console.log(getUser(3));
-
-module.exports = { getUsers, getUser };
 
